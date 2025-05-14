@@ -1,5 +1,11 @@
+import DashboardLayout from "./Layout";
+
 const DashboardPage = () => {
-  return <div></div>;
+  return (
+    <DashboardLayout>
+      <p></p>
+    </DashboardLayout>
+  );
 };
 
 export default DashboardPage;

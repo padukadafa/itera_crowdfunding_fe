@@ -50,17 +50,19 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white border-b shadow-sm px-72 py-4 flex justify-between items-center">
-      <div className="text-2xl font-bold text-slate-600">
-        ITERA Crowdfunding
-      </div>
+      <Link to={"/"}>
+        <div className="text-2xl font-bold text-slate-600">
+          ITERA Crowdfunding
+        </div>
+      </Link>
 
       <div className="flex gap-x-8 items-center">
         <div className="flex items-center gap-x-8 text-lg font-bold text-slate-600 ">
-          <Link to={"/"} className="hover:text-slate-400 duration-300">
-            Home
+          <Link to={"/kampanye"} className="hover:text-slate-400 duration-300">
+            Daftar Kampanye
           </Link>
           <Link to={"/"} className="hover:text-slate-400 duration-300">
-            About
+            Tentang
           </Link>
         </div>
         <div className="flex items-center gap-2">
