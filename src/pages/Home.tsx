@@ -1,11 +1,16 @@
 import Footer from "@/components/Footer";
 import KampanyeItem from "@/components/KampanyeItem";
+import KampanyeLoadingItem from "@/components/KampanyeLoadingItem";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
+import { useCampaigns } from "@/hooks/useCampaigns";
+import { useTopDonation } from "@/hooks/useTopDonation";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
+  const { campaigns, loading } = useCampaigns();
+  const { topDonations, loading: topDonationLoading } = useTopDonation();
   return (
     <>
       <Navbar />
@@ -39,9 +44,13 @@ const HomePage = () => {
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad, nihil.
           </p>
           <div className="grid grid-cols-3 w-full gap-8">
-            {Array.from({ length: 9 }, (_, i) => i + 1).map((item) => {
-              return <KampanyeItem />;
-            })}
+            {loading
+              ? Array.from({ length: 6 }).map((_, i) => (
+                  <KampanyeLoadingItem key={i} />
+                ))
+              : campaigns.slice(0, 9).map((item) => {
+                  return <KampanyeItem campaign={item} key={item.id} />;
+                })}
           </div>
           <Link to={"/kampanye"} className="mx-auto">
             <Button
@@ -55,26 +64,47 @@ const HomePage = () => {
         <section className="flex flex-col gap-y-8">
           <div className="flex items-center justify-between border-b-2 pb-8">
             <h1 className="text-3xl font-bold">Top Donatur</h1>
-            <Link to={"/donatur/top"}>Semua Donatur</Link>
           </div>
           <div className="flex items-center gap-x-12">
-            {Array.from({ length: 4 }, (_, i) => i + 1).map((_) => {
-              return (
-                <div className="flex gap-x-8 p-6 rounded-3xl border">
-                  <Avatar>
-                    <AvatarImage src="https://clarity-tailwind.preview.uideck.com/images/user-01.png" />
-                    <AvatarFallback>Avatar</AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col justify-between">
-                    <p className="text-xl font-bold">Adrio Devid</p>
-                    <p className="text-slate-600 font-medium text-lg">
-                      Teknik Informatika
-                    </p>
-                    <p className="text-slate-600">Total Donasi Rp.12.560.000</p>
+            {topDonationLoading
+              ? Array.from({ length: 4 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="flex gap-x-8 p-6 rounded-3xl border animate-pulse w-full max-w-xs"
+                  >
+                    <div className="w-16 h-16 bg-slate-200 rounded-full" />
+                    <div className="flex flex-col gap-y-2 w-full">
+                      <div className="w-1/2 h-4 bg-slate-200 rounded" />
+                      <div className="w-2/3 h-4 bg-slate-200 rounded" />
+                      <div className="w-1/3 h-4 bg-slate-200 rounded" />
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                ))
+              : topDonations.slice(0, 4).map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex gap-x-8 p-6 rounded-3xl border"
+                  >
+                    <Avatar>
+                      <AvatarImage src="https://clarity-tailwind.preview.uideck.com/images/user-01.png" />
+                      <AvatarFallback>Avatar</AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col justify-between">
+                      <p className="text-xl font-bold">{item.name}</p>
+                      <p className="text-slate-600 font-medium text-lg">
+                        {item.prodi}
+                      </p>
+                      <p className="text-slate-600">
+                        Total Donasi{" "}
+                        {new Intl.NumberFormat("en-ID", {
+                          style: "currency",
+
+                          currency: "IDR",
+                        }).format(item.total_donation)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
           </div>
         </section>
       </main>

@@ -1,5 +1,6 @@
 import {
   Calendar,
+  DollarSign,
   Flag,
   Home,
   Inbox,
@@ -22,7 +23,7 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 
-export function AppSidebar() {
+export function DashboardSidebar() {
   return (
     <Sidebar variant="floating" collapsible="icon">
       <SidebarContent>
@@ -46,15 +47,37 @@ export function AppSidebar() {
                 <SidebarMenuSub>
                   <SidebarMenuSubItem>
                     <SidebarMenuSubButton asChild>
-                      <a href="#">
+                      <a href="/dashboard/kampanye">
                         <span>Daftar Kampanye</span>
                       </a>
                     </SidebarMenuSubButton>
                   </SidebarMenuSubItem>
                   <SidebarMenuSubItem>
                     <SidebarMenuSubButton asChild>
-                      <a href="#">
+                      <a href="/dashboard/pengajuan">
                         <span>Pengajuan Kampanye</span>
+                      </a>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <DollarSign />
+                  <span>Donasi</span>
+                </SidebarMenuButton>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton asChild>
+                      <a href="/dashboard/donasi">
+                        <span>Daftar Donasi</span>
+                      </a>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton asChild>
+                      <a href="/dashboard/pencairan">
+                        <span>Pencairan</span>
                       </a>
                     </SidebarMenuSubButton>
                   </SidebarMenuSubItem>
