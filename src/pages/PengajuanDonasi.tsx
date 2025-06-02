@@ -19,6 +19,15 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/lib/supabase";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useType } from "@/hooks/useType";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   title: z.string().min(1, "Judul wajib diisi"),
@@ -39,6 +48,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const PengajuanKampanyePage = () => {
+  const { types } = useType();
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -110,7 +120,8 @@ const PengajuanKampanyePage = () => {
 
       const result = await response.json();
       console.log(result[0]);
-      navigate(`/dashboard/kampanye/${result[0].id}`);
+      toast.success("Kampanye berhasil diajukan!");
+      navigate("/");
     } catch (error) {
       alert("Terjadi kesalahan saat mengirim data");
       console.error(error);
@@ -153,6 +164,30 @@ const PengajuanKampanyePage = () => {
                       placeholder="Ceritakan tujuan kampanye ini..."
                       {...field}
                     />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="type_id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tipe</FormLabel>
+                  <FormControl>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Tipe" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {types.map((type) => (
+                          <SelectItem key={type.id} value={type.id.toString()}>
+                            {type.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -5,7 +5,7 @@ const Footer = ({ className }: React.ComponentProps<"footer">) => {
   return (
     <footer
       className={cn(
-        "border-t-2 border-b-2 w-full py-10 px-72 flex items-center justify-between",
+        "border-t-2 border-b-2 w-full py-10 px-2 xl:px-72 flex items-center justify-between",
         className
       )}
     >

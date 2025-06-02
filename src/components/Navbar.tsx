@@ -11,8 +11,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
-import { Input } from "./ui/input";
+import { Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
@@ -49,15 +49,16 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white border-b shadow-sm px-72 py-4 flex justify-between items-center">
+    <nav className="bg-white border-b shadow-sm px-6 md:px-20 py-4 flex justify-between items-center">
       <Link to={"/"}>
         <div className="text-2xl font-bold text-slate-600">
           ITERA Crowdfunding
         </div>
       </Link>
 
-      <div className="flex gap-x-8 items-center">
-        <div className="flex items-center gap-x-8 text-lg font-bold text-slate-600 ">
+      {/* Desktop Navigation */}
+      <div className="hidden md:flex gap-x-8 items-center">
+        <div className="flex items-center gap-x-8 text-lg font-bold text-slate-600">
           <Link to={"/kampanye"} className="hover:text-slate-400 duration-300">
             Daftar Kampanye
           </Link>
@@ -90,6 +91,46 @@ export default function Navbar() {
             Login
           </Button>
         )}
+      </div>
+
+      {/* Mobile Hamburger Menu */}
+      <div className="lg:hidden">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <Menu className="w-6 h-6" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-64">
+            <div className="flex flex-col gap-4 mt-6">
+              <Link to={"/kampanye"} className="font-semibold text-slate-700">
+                Daftar Kampanye
+              </Link>
+              <Link
+                to={"/kampanye/pengajuan"}
+                className="font-semibold text-slate-700"
+              >
+                Pengajuan Donasi
+              </Link>
+              <hr />
+              {user ? (
+                <>
+                  <Button
+                    variant="outline"
+                    onClick={() => (window.location.href = "/donations")}
+                  >
+                    Donasiku
+                  </Button>
+                  <Button variant="destructive" onClick={handleLogout}>
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <Button onClick={handleLogin}>Login</Button>
+              )}
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </nav>
   );

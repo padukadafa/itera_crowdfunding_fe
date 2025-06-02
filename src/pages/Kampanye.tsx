@@ -18,11 +18,11 @@ const KampanyePage = () => {
       <main className="flex flex-col gap-y-24 px-72 mb-24">
         <div className="flex flex-col gap-y-8 mt-24">
           <h1 className="text-4xl font-bold text-center">
-            Lorem ipsum dolor sit.
+            Bersama Kita Bisa: Dukung Proyek & Inisiatif Mahasiswa ITERA
           </h1>
           <p className="text-slate-600 text-xl text-center">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus
-            similique at quam?
+            Mari jadi bagian dari perubahan. Donasikan atau ajukan kampanye
+            untuk proyek yang berdampak.
           </p>
         </div>
         <div className="flex items-center gap-2 mx-auto">

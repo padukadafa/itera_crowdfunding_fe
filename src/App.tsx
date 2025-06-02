@@ -19,12 +19,14 @@ import { DonationListPage } from "./pages/Donations";
 import { DonationDetailPage } from "./pages/DonationDetail";
 import PengajuanDonasiPage from "./pages/PengajuanDonasi";
 import { AdminRoute } from "./pages/AdminRoute";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="login" element={<LoginPage />} />
+      <Route path="register" element={<RegisterPage />} />
       <Route path="kampanye" element={<KampanyePage />} />
       <Route path="kampanye/:id" element={<KampanyeDetailPage />} />
       <Route

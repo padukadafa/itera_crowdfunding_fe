@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { Link } from "react-router-dom";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
@@ -48,7 +49,6 @@ export default function LoginPage() {
           <h2 className="text-2xl font-bold mb-6 text-center text-slate-600">
             Login
           </h2>
-
           <div className="mb-4">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -60,7 +60,6 @@ export default function LoginPage() {
               required
             />
           </div>
-
           <div className="mb-4">
             <Label htmlFor="password">Password</Label>
             <Input
@@ -72,12 +71,16 @@ export default function LoginPage() {
               required
             />
           </div>
-
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </Button>
+          <p className="text-sm text-center text-gray-600 mt-8">
+            Belum punya akun?{" "}
+            <a href="/register" className="text-blue-600 hover:underline">
+              Daftar di sini
+            </a>
+          </p>{" "}
         </form>
       </div>
       <Footer className="absolute bottom-0" />

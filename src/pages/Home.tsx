@@ -14,9 +14,9 @@ const HomePage = () => {
   return (
     <>
       <Navbar />
-      <main className="px-72 flex flex-col gap-y-24 mb-24">
+      <main className=" px-8 sm:16 md:32 lg:px-52 xl:px-72 flex flex-col gap-y-24 mb-24">
         <section className="mt-16">
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
             <img
               src="http://if.itera.ac.id/wp-content/uploads/2020/10/Photoshoot-_ITERA2020-34-min-scaled.jpg"
               alt="image"
@@ -41,7 +41,7 @@ const HomePage = () => {
           <p className="text-center text-lg text-slate-600">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad, nihil.
           </p>
-          <div className="grid grid-cols-3 w-full gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 w-full gap-8">
             {loading
               ? Array.from({ length: 6 }).map((_, i) => (
                   <KampanyeLoadingItem key={i} />
@@ -63,7 +63,7 @@ const HomePage = () => {
           <div className="flex items-center justify-between border-b-2 pb-8">
             <h1 className="text-3xl font-bold">Top Donatur</h1>
           </div>
-          <div className="flex items-center gap-x-12">
+          <div className="flex items-center gap-x-12 overflow-x-auto">
             {topDonationLoading
               ? Array.from({ length: 4 }).map((_, i) => (
                   <div
