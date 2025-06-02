@@ -43,10 +43,15 @@ export function useDonations(id?: number) {
       setLoading(false);
     }
   };
+  const fetchAllDonation = async () => {
+    const res = await fetch(`${API_URL}/donations/all`);
+    if (!res.ok) throw new Error("Failed to fetch donation");
+    return await res.json();
+  };
 
   const getDonationById = async (id: number): Promise<Donation> => {
     const res = await fetch(`${API_URL}/donations/${id}`);
-    if (!res.ok) throw new Error("Failed to fetch campaign");
+    if (!res.ok) throw new Error("Failed to fetch donation");
     return await res.json();
   };
 
@@ -59,5 +64,6 @@ export function useDonations(id?: number) {
     donation,
     loading,
     error,
+    fetchAllDonation,
   };
 }

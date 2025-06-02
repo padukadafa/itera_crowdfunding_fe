@@ -24,7 +24,12 @@ const KampanyeItem = ({ campaign }: { campaign: Campaign }) => {
         <div className="flex items-center">
           <div className="flex gap-x-4 items-center text-slate-600">
             <Avatar className="w-4 h-4">
-              <AvatarImage src="https://clarity-tailwind.preview.uideck.com/images/user-01.png" />
+              <AvatarImage
+                src={
+                  campaign.created_by.photo_url ??
+                  "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpgs"
+                }
+              />
               <AvatarFallback>Avatar</AvatarFallback>
             </Avatar>
             <p>{(campaign.created_by as User).name}</p>

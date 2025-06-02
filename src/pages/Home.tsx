@@ -18,19 +18,17 @@ const HomePage = () => {
         <section className="mt-16">
           <div className="grid grid-cols-2 gap-8">
             <img
-              src="https://clarity-tailwind.preview.uideck.com/images/hero-01.png"
+              src="http://if.itera.ac.id/wp-content/uploads/2020/10/Photoshoot-_ITERA2020-34-min-scaled.jpg"
               alt="image"
               className="w-full aspect-auto rounded"
             />
             <div className="flex flex-col gap-y-6 justify-center">
               <h1 className="font-bold text-3xl">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-                quas perspiciatis sit.
+                Bersama Kita Bisa: Dukung Proyek & Inisiatif Mahasiswa ITERA
               </h1>
               <p className="text-slate-600 text-lg">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint,
-                aperiam repellendus animi libero similique aspernatur vel maxime
-                ex cupiditate dolore.
+                Mari jadi bagian dari perubahan. Donasikan atau ajukan kampanye
+                untuk proyek yang berdampak.
               </p>
               <Button className="w-min" size={"lg"}>
                 Donasi Sekarang
@@ -86,7 +84,12 @@ const HomePage = () => {
                     className="flex gap-x-8 p-6 rounded-3xl border"
                   >
                     <Avatar>
-                      <AvatarImage src="https://clarity-tailwind.preview.uideck.com/images/user-01.png" />
+                      <AvatarImage
+                        src={
+                          item.photo_url ??
+                          "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpgs"
+                        }
+                      />
                       <AvatarFallback>Avatar</AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col justify-between">

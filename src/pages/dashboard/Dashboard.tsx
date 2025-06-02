@@ -1,35 +1,29 @@
 import { DollarSign, Flag, User } from "lucide-react";
-import DashboardLayout from "./Layout";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  type ChartConfig,
-} from "@/components/ui/chart";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { useCampaigns } from "@/hooks/useCampaigns";
+import { useDonations } from "@/hooks/useDonations";
+import { useEffect, useState } from "react";
 
 const DashboardPage = () => {
-  const chartData = [
-    { month: "January", desktop: 186, mobile: 80 },
-    { month: "February", desktop: 305, mobile: 200 },
-    { month: "March", desktop: 237, mobile: 120 },
-    { month: "April", desktop: 73, mobile: 190 },
-    { month: "May", desktop: 209, mobile: 130 },
-    { month: "June", desktop: 214, mobile: 140 },
-  ];
+  const { campaigns, loading } = useCampaigns();
+  const { fetchAllDonation, donations } = useDonations();
+  const [totalDonation, setTotalDonation] = useState(0);
+  const [donatur, setDonatur] = useState();
+  useEffect(() => {
+    const fetchDonatur = async () => {
+      const res = await fetchAllDonation();
 
-  const chartConfig = {
-    desktop: {
-      label: "Desktop",
-      color: "#2563eb",
-    },
-    mobile: {
-      label: "Mobile",
-      color: "#60a5fa",
-    },
-  } satisfies ChartConfig;
-
+      setDonatur(res);
+    };
+    fetchDonatur();
+  }, []);
+  useEffect(() => {
+    setTotalDonation(
+      donations.reduce((acc, curr) => {
+        return acc + curr.amount;
+      }, 0)
+    );
+  }, [donations]);
   return (
     <>
       <h1 className="text-2xl font-bold">Dashboard</h1>
@@ -39,62 +33,59 @@ const DashboardPage = () => {
             <p className="font-medium text-lg">Total Donasi</p>
             <DollarSign />
           </div>
-          <p className="font-bold text-2xl">Rp. 124.652.180</p>
+          <p className="font-bold text-2xl">
+            {new Intl.NumberFormat("en-ID", {
+              style: "currency",
+              currency: "IDR",
+            }).format(totalDonation)}
+          </p>
         </div>
         <div className="p-6 flex flex-col gap-y-6 w-full rounded-xl border shadow">
           <div className="flex items-center justify-between">
             <p className="font-medium text-lg">Total Donatur</p>
             <User />
           </div>
-          <p className="font-bold text-2xl">18.721</p>
+          <p className="font-bold text-2xl">{donatur?.length}</p>
         </div>
         <div className="p-6 flex flex-col gap-y-6 w-full rounded-xl border shadow">
           <div className="flex items-center justify-between">
             <p className="font-medium text-lg">Total Kampanye</p>
             <Flag />
           </div>
-          <p className="font-bold text-2xl">1.210</p>
+          <p className="font-bold text-2xl">
+            {!loading ? campaigns.length : "Loading"}
+          </p>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-12 mt-12">
-        <div className="col-span-2 rounded-xl shadow border p-6">
-          <h2 className="text-xl font-bold">Overview</h2>
-          <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-            <BarChart accessibilityLayer data={chartData}>
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="month"
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value) => value.slice(0, 3)}
-              />
-              <YAxis />
-              <ChartTooltip content={<ChartTooltipContent />} />
-
-              <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-              <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
-            </BarChart>
-          </ChartContainer>
-        </div>
-        <div className="rounded-xl col-span-1 shadow border p-6 h-min">
+      <div className=" gap-12 mt-12">
+        <div className="rounded-xl cshadow border p-6 h-min">
           <h2 className="text-xl font-bold">Donasi Terbaru</h2>
           <p className="text-slate-600">Total donasi bulan ini 127 donasi</p>
           <div className="flex flex-col gap-y-6 mt-12">
-            {Array.from({ length: 5 }, (_, i) => i + 1).map((_) => {
+            {donations.slice(0, 5).map((value) => {
               return (
                 <div className="flex justify-between">
                   <div className="flex gap-x-4">
                     <Avatar className="w-12 h-12">
-                      <AvatarImage src="https://clarity-tailwind.preview.uideck.com/images/user-02.png" />
+                      <AvatarImage
+                        src={
+                          value.donor.photo_url ??
+                          "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpgs"
+                        }
+                      />
                       <AvatarFallback>Avatar</AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col">
-                      <p className="text-lg font-medium">Dona Olivia</p>
-                      <p className="text-slate-600">Teknik Informatika</p>
+                      <p className="text-lg font-medium">{value.donor.name}</p>
+                      <p className="text-slate-600">{value.donor.prodi}</p>
                     </div>
                   </div>
-                  <p className="text-lg font-medium">Rp. 132.000</p>
+                  <p className="text-lg font-medium">
+                    {new Intl.NumberFormat("en-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(value.amount)}
+                  </p>
                 </div>
               );
             })}

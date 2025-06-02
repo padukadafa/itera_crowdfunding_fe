@@ -14,6 +14,11 @@ import DaftarDonasiPage from "./pages/dashboard/DaftarDonasi";
 import DetailDonasiPage from "./pages/dashboard/DetailDonasi";
 import DonasiKampanyePage from "./pages/dashboard/DonasiKampanyePage";
 import DaftarWithdrawPage from "./pages/dashboard/DaftarWithdraw";
+import PaymentSuccessPage from "./pages/PaymentSuccess";
+import { DonationListPage } from "./pages/Donations";
+import { DonationDetailPage } from "./pages/DonationDetail";
+import PengajuanDonasiPage from "./pages/PengajuanDonasi";
+import { AdminRoute } from "./pages/AdminRoute";
 
 function App() {
   return (
@@ -23,11 +28,44 @@ function App() {
       <Route path="kampanye" element={<KampanyePage />} />
       <Route path="kampanye/:id" element={<KampanyeDetailPage />} />
       <Route
-        path="dashboard"
+        path="kampanye/pengajuan"
         element={
           <PrivateRoute>
-            <DashboardLayout />
+            <PengajuanDonasiPage />
           </PrivateRoute>
+        }
+      />
+      <Route
+        path="/payment-success"
+        element={
+          <PrivateRoute>
+            <PaymentSuccessPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="donations"
+        element={
+          <PrivateRoute>
+            <DonationListPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="donations/:id"
+        element={
+          <PrivateRoute>
+            <DonationDetailPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="dashboard"
+        element={
+          <AdminRoute>
+            <DashboardLayout />
+          </AdminRoute>
         }
       >
         <Route index element={<DashboardPage />} />

@@ -21,8 +21,11 @@ export function useTopDonation() {
   };
   const getTopDonation = async (): Promise<User[]> => {
     const res = await fetch(`${API_URL}/donations/top`);
+
     if (!res.ok) throw new Error("Failed to fetch top donations");
-    return await res.json();
+    const data = await res.json();
+    console.log(data);
+    return data;
   };
 
   useEffect(() => {

@@ -61,15 +61,12 @@ export default function Navbar() {
           <Link to={"/kampanye"} className="hover:text-slate-400 duration-300">
             Daftar Kampanye
           </Link>
-          <Link to={"/"} className="hover:text-slate-400 duration-300">
-            Tentang
+          <Link
+            to={"/kampanye/pengajuan"}
+            className="hover:text-slate-400 duration-300"
+          >
+            Pengajuan Donasi
           </Link>
-        </div>
-        <div className="flex items-center gap-2">
-          <Input type="text" placeholder="Search..." className="w-64" />
-          <Button variant="outline" size="icon">
-            <Search className="h-5 w-5" />
-          </Button>
         </div>
         {user ? (
           <DropdownMenu>
@@ -77,13 +74,12 @@ export default function Navbar() {
               <Button variant="outline">{user.email}</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Akun</DropdownMenuLabel>
-              <DropdownMenuSeparator />
               <DropdownMenuItem
-                onClick={() => (window.location.href = "/dashboard")}
+                onClick={() => (window.location.href = "/donations")}
               >
-                Dashboard
+                Donasiku
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout} className="text-red-500">
                 Logout
               </DropdownMenuItem>
